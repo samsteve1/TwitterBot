@@ -37,7 +37,7 @@ class CodeBirdTwitterService implements TwitterService
         ];
 
         if ($inReplyTo) {
-            $params['in_reply_to_status'] = $inReplyTo;
+            $params['in_reply_to_status_id'] = $inReplyTo;
         }
 
         $this->client->statuses_update($params);
