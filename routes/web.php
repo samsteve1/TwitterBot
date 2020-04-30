@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+use App\Services\Twitter\TwitterService;
+
+Route::get('/', function (TwitterService $twitter) {
+    dd($twitter);
     return view('welcome');
 });
