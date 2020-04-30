@@ -23,6 +23,7 @@ class ReplyToTweets extends Command
      * @var string
      */
     protected $description = 'Reply to recent mentions.';
+    protected $ml;
 
     /**
      * Create a new command instance.
@@ -33,6 +34,7 @@ class ReplyToTweets extends Command
     {
         parent::__construct();
         $this->twitter = $twitter;
+        $this->ml = app()->make('monkeylearn');
     }
 
     /**
@@ -54,6 +56,13 @@ class ReplyToTweets extends Command
         if (!$mentions->count()) {
             return $this->info('No mentions to process at the moment');
         }
-        
+
+        $text = $mentions->map(function($mention) {
+            return $mention->text;
+        });
+
+        $sentiments = $this->ml->classifiers->classify('cl_pi3C7JiL', $text->toArray(), true);
+
+        dd($sentiments);
     }
 }
