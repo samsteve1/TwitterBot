@@ -14,6 +14,7 @@
 use App\Services\Twitter\TwitterService;
 
 Route::get('/', function (TwitterService $twitter) {
-    dd($twitter);
+    $mentions = $twitter->getMentions('123');
+    dd($mentions);
     return view('welcome');
 });
