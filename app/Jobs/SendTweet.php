@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\TweetSent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,5 +37,7 @@ class SendTweet implements ShouldQueue
     public function handle(TwitterService $twitter)
     {
         $twitter->sendTweet("@{$this->handle} {$this->text}", $this->id);
+
+        event(new TweetSent($this->id));
     }
 }
